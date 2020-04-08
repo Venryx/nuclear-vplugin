@@ -1,0 +1,37 @@
+{
+  "name": "nuclear-vplugin",
+  "description": "Some enhancements for Nuclear, eg. weights to boost a folder's distribution/representation within a playlist.",
+  "version": "1.0.0",
+  "main": "Dist/index.js",
+  "typings": "Dist/index.d.ts",
+  "type": "module",
+  "license": "MIT",
+  "author": {
+    "name": "Venryx",
+    "email": "venryx@gmail.com",
+    "url": "https://venryx.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Venryx/nuclear-vplugin.git"
+  },
+  "keywords": [
+    "nuclear"
+  ],
+  "scripts": {
+    "dev": "tsc --watch",
+    "dist": "tsc"
+  },
+  "peerDependencies": {
+    "mobx": "^5.0.0"
+  },
+  "devDependencies": {
+    "mobx": "^5.15.4",
+    "typescript": "^3.7.4"
+  },
+  "dependencies": {
+    "@types/electron": "^1.6.10",
+    "js-vextensions": "^1.0.31",
+    "mobx-utils": "github:Venryx/mobx-utils#5.5.2_VPatch2"
+  }
+}
