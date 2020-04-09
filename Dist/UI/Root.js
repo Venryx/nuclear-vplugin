@@ -9,7 +9,7 @@ const react_vcomponents_1 = require("react-vcomponents");
 class RootUI extends react_vextensions_1.BaseComponentPlus({}, {}) {
     render() {
         let {} = this.props;
-        return (react_1.default.createElement(react_vcomponents_1.Row, null,
+        return (react_1.default.createElement(react_vcomponents_1.Row, { ml: 5 },
             react_1.default.createElement(react_vcomponents_1.Button, { text: "VPlugin" })));
     }
 }

@@ -16,6 +16,6 @@ export function Start(rootPath: string, require_app: (path: string)=>any) {
 	//console.log("Test1:" + require("react-redux"));
 	//console.log("Test2:", __webpack_require__);
 	//console.log("Test3:", __webpack_require__("react-redux"));
-	console.log("Test4:", require_app("./node_modules/react-redux/es/index.js"));
+	//console.log("Test4:", require_app("./node_modules/react-redux/es/index.js"));
 	//debugger;
 }

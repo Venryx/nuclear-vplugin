@@ -6,7 +6,7 @@ export class RootUI extends BaseComponentPlus({}, {}) {
 	render() {
 		let {} = this.props;
 		return (
-			<Row>
+			<Row ml={5}>
 				<Button text="VPlugin"/>
 			</Row>
 		);
