@@ -1,4 +1,33 @@
-import {remote} from "electron";
+// before anything else, open the dev-tools
+const webContents = require("electron").remote.BrowserWindow.getFocusedWindow()!.webContents;
+if (!webContents.isDevToolsOpened()) {
+	webContents.openDevTools({mode: "bottom"});
+}
+//import "./Utils/General/ForceOpenDevTools";
+//require("./Utils/General/ForceOpenDevTools");
+
+/*import {remote} from "electron";
+import React from "react";
+import ReactDOM from "react-dom";
+import {RootUI} from "./UI/Root";*/
+
+/*const {remote} = require("electron");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const {RootUI} = require("./UI/Root");*/
+
+const root = `C:/Root/Apps/@V/Nuclear/@Plugins/nuclear-vplugin/Main`;
+//const root = `${__dirname}/..`;
+const nm = `${root}/node_modules`;
+/*const root = `../`;
+const nm = `../node_modules`;*/
+
+const {remote} = require("electron");
+//import React from "../node_modules/react";
+const React = require(`${nm}/react`);
+//const ReactRedux = Require_App("./node_modules/react-redux/es/index.js");
+const ReactDOM = require(`${nm}/react-dom`);
+const {RootUI} = require(`${root}/Dist/UI/Root.js`);
 
 /*
 There are two "require contexts" available to plugins:
@@ -15,9 +44,9 @@ function Require_App(path: string) {
 //console.log("Test2:", __webpack_require__);
 //console.log("Test3:", __webpack_require__("react-redux"));
 console.log("Test4:", Require_App("./node_modules/react-redux/es/index.js"));
-debugger;
+//debugger;
 
-const webContents = remote.BrowserWindow.getFocusedWindow()!.webContents;
+//const webContents = remote.BrowserWindow.getFocusedWindow()!.webContents;
 
 //export default {
 module.exports = {
@@ -26,19 +55,18 @@ module.exports = {
 	image: null,
 	onLoad: api=>{
 		console.log("VPlugin started.");
-
-		/*const listener = (event, webContents2)=> {
-			if (!webContents.isDevToolsOpened()) {
-				webContents.openDevTools({mode: "bottom"});
-			}
-			api.app.removeListener("browser-window-blur", listener);
-			api.app.removeListener("browser-window-focus", listener);
-		};
-		api.app.on("browser-window-blur", listener);
-		api.app.on("browser-window-focus", listener);
-		api.app.focus();*/
 		if (!webContents.isDevToolsOpened()) {
 			webContents.openDevTools({mode: "bottom"});
 		}
+
+		let mountNode = document.getElementById("vplugin-root");
+		if (mountNode == null) {
+			mountNode = document.createElement("div");
+			mountNode.id = "vplugin-root";
+			document.querySelector(".search_box_container")!.appendChild(mountNode);
+		}
+
+		//ReactDOM.render(<RootUI/>, mountNode);
+		ReactDOM.render(React.createElement(RootUI), mountNode);
 	}
 };

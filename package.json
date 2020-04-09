@@ -26,12 +26,17 @@
     "mobx": "^5.0.0"
   },
   "devDependencies": {
+    "@types/react": "^16.9.33",
     "mobx": "^5.15.4",
     "typescript": "^3.7.4"
   },
   "dependencies": {
     "@types/electron": "^1.6.10",
     "js-vextensions": "^1.0.31",
-    "mobx-utils": "github:Venryx/mobx-utils#5.5.2_VPatch2"
+    "mobx-utils": "github:Venryx/mobx-utils#5.5.2_VPatch2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-vcomponents": "^1.0.13",
+    "react-vextensions": "^1.0.4"
   }
 }
