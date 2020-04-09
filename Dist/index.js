@@ -1,4 +1,12 @@
 import { remote } from "electron";
+function Require_App(path) {
+    return __webpack_require__(path);
+}
+//console.log("Test1:" + require("react-redux"));
+//console.log("Test2:", __webpack_require__);
+//console.log("Test3:", __webpack_require__("react-redux"));
+console.log("Test4:", Require_App("./node_modules/react-redux/es/index.js"));
+debugger;
 const webContents = remote.BrowserWindow.getFocusedWindow().webContents;
 //export default {
 module.exports = {
