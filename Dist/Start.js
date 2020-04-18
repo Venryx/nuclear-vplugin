@@ -5,16 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const react_dom_1 = __importDefault(require("react-dom"));
+//import {Timer} from "js-vextensions";
 const Root_1 = require("./UI/Root");
+const FromJSVE_1 = require("./Utils/General/FromJSVE");
 function Start(rootPath, require_app) {
-    let mountNode = document.getElementById("vplugin-root");
-    if (mountNode == null) {
-        mountNode = document.createElement("div");
-        mountNode.id = "vplugin-root";
-        document.querySelector(".search_box_container").appendChild(mountNode);
-    }
-    //ReactDOM.render(<RootUI/>, mountNode);
-    react_dom_1.default.render(react_1.default.createElement(Root_1.RootUI), mountNode);
+    mountNodeParentFinder.Start();
     //console.log("Test1:" + require("react-redux"));
     //console.log("Test2:", __webpack_require__);
     //console.log("Test3:", __webpack_require__("react-redux"));
@@ -22,3 +17,21 @@ function Start(rootPath, require_app) {
     //debugger;
 }
 exports.Start = Start;
+let mountNodeParent;
+const mountNodeParentFinder = new FromJSVE_1.Timer(100, () => {
+    mountNodeParent = document.querySelector(".search_box_container");
+    if (mountNodeParent) {
+        mountNodeParentFinder.Stop();
+        CreateUI();
+    }
+});
+function CreateUI() {
+    let mountNode = document.getElementById("vplugin-root");
+    if (mountNode == null) {
+        mountNode = document.createElement("div");
+        mountNode.id = "vplugin-root";
+        mountNodeParent.appendChild(mountNode);
+    }
+    //ReactDOM.render(<RootUI/>, mountNode);
+    react_dom_1.default.render(react_1.default.createElement(Root_1.RootUI), mountNode);
+}
