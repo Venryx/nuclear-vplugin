@@ -94,11 +94,11 @@ export = {
 					// require the Start.js file within the proxy folder, rather than the root "./Dist" folder (thus avoiding the module-caching)
 					const startScriptPath_proxy = `${proxyPath}/Start.js`;
 					const {Start} = require(startScriptPath_proxy);
-					Start(rootPath, require_app);
+					Start(api, rootPath, require_app);
 				} else {
 					const startScriptPath = `${distPath}/Start.js`;
 					const {Start} = require(startScriptPath);
-					Start(rootPath, require_app);
+					Start(api, rootPath, require_app);
 				}
 			}
 		});
