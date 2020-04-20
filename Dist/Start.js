@@ -10,6 +10,7 @@ const Root_1 = require("./UI/Root");
 const FromJSVE_1 = require("./Utils/General/FromJSVE");
 const General_1 = require("./Utils/General/General");
 const DistributionColumn_1 = require("./UI/DistributionColumn");
+const Store_1 = require("./Store");
 let unsubscribe;
 function Start(api, rootPath, require_app) {
     // if there was a previous launch of this plugin, unload that launch before this one starts 
@@ -30,6 +31,47 @@ function Start(api, rootPath, require_app) {
         const tableLayout = newState.grid.get("local-library-folder-tree");
         const tableData = newState.dataSource.get("local-library-folder-tree");
         if (tableLayout) {
+            // toggle album column
+            const albumColumnEntryIndex = tableLayout.columns.findIndex(a => a.dataIndex == "album");
+            if (Store_1.store.showAlbumColumn) {
+                if (albumColumnEntryIndex == -1) {
+                    tableLayout.columns.splice(1, 0, {
+                        name: "Album",
+                        dataIndex: "album",
+                        sortable: false,
+                        className: "additional-class",
+                        defaultSortDirection: "descend",
+                        //id: "QWxidW1ncmlkLWNvbHVtbg==",
+                        id: Math.random(),
+                    });
+                }
+            }
+            else {
+                if (albumColumnEntryIndex != -1) {
+                    tableLayout.columns.splice(albumColumnEntryIndex, 1);
+                }
+            }
+            // toggle artist column
+            const artistColumnEntryIndex = tableLayout.columns.findIndex(a => a.dataIndex == "artist");
+            if (Store_1.store.showArtistColumn) {
+                if (artistColumnEntryIndex == -1) {
+                    tableLayout.columns.splice(2, 0, {
+                        name: "Artist",
+                        dataIndex: "artist",
+                        sortable: false,
+                        className: "additional-class",
+                        defaultSortDirection: "descend",
+                        //id: "QXJ0aXN0Z3JpZC1jb2x1bW4=",
+                        id: Math.random(),
+                    });
+                }
+            }
+            else {
+                if (artistColumnEntryIndex != -1) {
+                    tableLayout.columns.splice(artistColumnEntryIndex, 1);
+                }
+            }
+            // apply own column
             const oldColumnEntryIndex = tableLayout.columns.findIndex(a => a.name == DistributionColumn_1.distributionColumn.name);
             if (oldColumnEntryIndex != -1) {
                 tableLayout.columns.splice(oldColumnEntryIndex, 1);

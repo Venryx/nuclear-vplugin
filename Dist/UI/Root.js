@@ -26,6 +26,7 @@ const FromJSVE_1 = require("../Utils/General/FromJSVE");
 const mobx_1 = require("mobx");
 const mobx_react_1 = require("mobx-react");
 const mobx_sync_1 = require("mobx-sync");
+const FromVWAF_1 = require("../Utils/General/FromVWAF");
 let RootUIWrapper = class RootUIWrapper extends react_vextensions_1.BaseComponentPlus({}, {}) {
     constructor() {
         super(...arguments);
@@ -54,7 +55,7 @@ RootUIWrapper = __decorate([
     mobx_react_1.observer
 ], RootUIWrapper);
 exports.RootUIWrapper = RootUIWrapper;
-class RootUI extends react_vextensions_1.BaseComponentPlus({}, {}) {
+let RootUI = class RootUI extends react_vextensions_1.BaseComponentPlus({}, {}) {
     render() {
         let {} = this.props;
         return (react_1.default.createElement(react_1.default.Fragment, null,
@@ -68,13 +69,14 @@ class RootUI extends react_vextensions_1.BaseComponentPlus({}, {}) {
                 react_1.default.createElement(react_vcomponents_1.DropDown, null,
                     react_1.default.createElement(react_vcomponents_1.DropDownTrigger, null,
                         react_1.default.createElement(react_vcomponents_1.Button, { text: "VPlugin" })),
-                    react_1.default.createElement(react_vcomponents_1.DropDownContent, { style: { position: "absolute" } },
+                    react_1.default.createElement(react_vcomponents_1.DropDownContent, { style: { position: "absolute", width: 500 } },
+                        react_1.default.createElement(react_vcomponents_1.Row, null,
+                            react_1.default.createElement(react_vcomponents_1.Text, null, "Show columns:"),
+                            react_1.default.createElement(react_vcomponents_1.CheckBox, { ml: 5, text: "Album", value: Store_1.store.showAlbumColumn, onChange: val => Store_1.store.showAlbumColumn = val }),
+                            react_1.default.createElement(react_vcomponents_1.CheckBox, { ml: 5, text: "Artist", value: Store_1.store.showArtistColumn, onChange: val => Store_1.store.showArtistColumn = val })),
                         react_1.default.createElement(react_vcomponents_1.Row, null,
                             react_1.default.createElement(react_vcomponents_1.Text, null, "Playlist length:"),
-                            react_1.default.createElement(react_vcomponents_1.Spinner, { ml: 5, value: Store_1.store.playlistLength, onChange: val => {
-                                    Store_1.store.playlistLength = val;
-                                    this.Update();
-                                } })),
+                            react_1.default.createElement(react_vcomponents_1.Spinner, { ml: 5, value: Store_1.store.playlistLength, onChange: val => Store_1.store.playlistLength = val })),
                         react_1.default.createElement(react_vcomponents_1.Row, { mt: 5 },
                             react_1.default.createElement(react_vcomponents_1.Button, { text: "Generate playlist", onClick: () => {
                                 } })),
@@ -90,5 +92,8 @@ class RootUI extends react_vextensions_1.BaseComponentPlus({}, {}) {
                                     // todo
                                 } })))))));
     }
-}
+};
+RootUI = __decorate([
+    FromVWAF_1.Observer
+], RootUI);
 exports.RootUI = RootUI;

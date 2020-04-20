@@ -49,7 +49,7 @@ class WeightCellUI extends BaseComponentPlus({} as {row: RowData}, {}) {
 		return (
 			<Row>
 				<Spinner value={RoundTo(weight * 100, 1)} onChange={val=> {
-					if (val != 1) {
+					if (val != 100) {
 						store.pathWeights[row.path] = RoundTo(val / 100, .01);
 					} else {
 						delete store.pathWeights[row.path];

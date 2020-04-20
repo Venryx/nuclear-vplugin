@@ -1,11 +1,12 @@
 import React from "react";
 import {BaseComponentPlus} from "react-vextensions";
-import {Row, Button, DropDown, DropDownTrigger, DropDownContent, Text, Spinner} from "react-vcomponents";
+import {Row, Button, DropDown, DropDownTrigger, DropDownContent, Text, Spinner, CheckBox} from "react-vcomponents";
 import {store} from "../Store";
 import {StartDownload} from "../Utils/General/FromJSVE";
 import {observable, runInAction} from "mobx";
 import {observer} from "mobx-react";
 import {AsyncTrunk} from "mobx-sync";
+import {Observer} from "../Utils/General/FromVWAF";
 
 @observer
 export class RootUIWrapper extends BaseComponentPlus({}, {}) {
@@ -30,6 +31,7 @@ export class RootUIWrapper extends BaseComponentPlus({}, {}) {
 	}
 }
 
+@Observer
 export class RootUI extends BaseComponentPlus({}, {}) {
 	render() {
 		let {} = this.props;
@@ -46,13 +48,15 @@ export class RootUI extends BaseComponentPlus({}, {}) {
 						<DropDownTrigger>
 							<Button text="VPlugin"/>
 						</DropDownTrigger>
-						<DropDownContent style={{position: "absolute"}}>
+						<DropDownContent style={{position: "absolute", width: 500}}>
+							<Row>
+								<Text>Show columns:</Text>
+								<CheckBox ml={5} text="Album" value={store.showAlbumColumn} onChange={val=>store.showAlbumColumn = val}/>
+								<CheckBox ml={5} text="Artist" value={store.showArtistColumn} onChange={val=>store.showArtistColumn = val}/>
+							</Row>
 							<Row>
 								<Text>Playlist length:</Text>
-								<Spinner ml={5} value={store.playlistLength} onChange={val=> {
-									store.playlistLength = val;
-									this.Update();
-								}}/>
+								<Spinner ml={5} value={store.playlistLength} onChange={val=>store.playlistLength = val}/>
 							</Row>
 							<Row mt={5}>
 								<Button text="Generate playlist" onClick={()=> {

@@ -48,7 +48,7 @@ class WeightCellUI extends react_vextensions_1.BaseComponentPlus({}, {}) {
         const finalWeight = weightValues.reduce((acc, cur) => acc * cur, 1);
         return (react_1.default.createElement(react_vcomponents_1.Row, null,
             react_1.default.createElement(react_vcomponents_1.Spinner, { value: FromJSVE_1.RoundTo(weight * 100, 1), onChange: val => {
-                    if (val != 1) {
+                    if (val != 100) {
                         Store_1.store.pathWeights[row.path] = FromJSVE_1.RoundTo(val / 100, .01);
                     }
                     else {

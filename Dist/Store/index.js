@@ -9,10 +9,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mobx_1 = require("mobx");
 class MainState {
     constructor() {
+        this.showAlbumColumn = true;
+        this.showArtistColumn = true;
         this.playlistLength = 100;
         this.pathWeights = {};
     }
 }
+__decorate([
+    mobx_1.observable
+], MainState.prototype, "showAlbumColumn", void 0);
+__decorate([
+    mobx_1.observable
+], MainState.prototype, "showArtistColumn", void 0);
 __decorate([
     mobx_1.observable
 ], MainState.prototype, "playlistLength", void 0);
@@ -21,3 +29,4 @@ __decorate([
 ], MainState.prototype, "pathWeights", void 0);
 exports.MainState = MainState;
 exports.store = new MainState();
+window["vplugin_store"] = exports.store; // for console-based hacking and such
