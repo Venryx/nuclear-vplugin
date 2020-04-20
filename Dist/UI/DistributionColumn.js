@@ -7,6 +7,7 @@ const Store_1 = require("../Store");
 const react_1 = __importDefault(require("react"));
 const react_vcomponents_1 = require("react-vcomponents");
 const react_vextensions_1 = require("react-vextensions");
+const FromJSVE_1 = require("../Utils/General/FromJSVE");
 function GetWeightValuesForPath(path) {
     const pathParts = path.split("/");
     const ancestorFolderPaths = pathParts.map((part, index) => {
@@ -15,7 +16,7 @@ function GetWeightValuesForPath(path) {
         return folderPath;
     });
     return ancestorFolderPaths.map(path => {
-        return Store_1.pathWeights[path] != null ? Store_1.pathWeights[path] : 1;
+        return Store_1.store.pathWeights[path] != null ? Store_1.store.pathWeights[path] : 1;
     });
 }
 exports.GetWeightValuesForPath = GetWeightValuesForPath;
@@ -42,23 +43,23 @@ class RowData {
 class WeightCellUI extends react_vextensions_1.BaseComponentPlus({}, {}) {
     render() {
         const { row } = this.props;
-        const weight = Store_1.pathWeights[row.path] != null ? Store_1.pathWeights[row.path] : 1;
+        const weight = Store_1.store.pathWeights[row.path] != null ? Store_1.store.pathWeights[row.path] : 1;
         const weightValues = GetWeightValuesForPath(row.path);
         const finalWeight = weightValues.reduce((acc, cur) => acc * cur, 1);
         return (react_1.default.createElement(react_vcomponents_1.Row, null,
-            react_1.default.createElement(react_vcomponents_1.Spinner, { value: weight * 100, onChange: val => {
+            react_1.default.createElement(react_vcomponents_1.Spinner, { value: FromJSVE_1.RoundTo(weight * 100, 1), onChange: val => {
                     if (val != 1) {
-                        Store_1.pathWeights[row.path] = val / 100;
+                        Store_1.store.pathWeights[row.path] = FromJSVE_1.RoundTo(val / 100, .01);
                     }
                     else {
-                        delete Store_1.pathWeights[row.path];
+                        delete Store_1.store.pathWeights[row.path];
                     }
                     // update all weight-cell uis (since final % might have changed)
                     Object.values(exports.pathWeightCellUIs).forEach(cellUI => cellUI.forceUpdate());
                 } }),
             react_1.default.createElement(react_vcomponents_1.Text, null,
                 "% (final: ",
-                finalWeight * 100,
+                FromJSVE_1.RoundTo_Str(finalWeight * 100, .01, undefined, false),
                 "%)")));
     }
 }

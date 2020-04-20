@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 //import {Timer} from "js-vextensions";
-import {RootUI} from "./UI/Root";
+import {RootUI, RootUIWrapper} from "./UI/Root";
 import {Timer} from "./Utils/General/FromJSVE";
 import {ObserveStore, AddPropToImmutableJSMap} from "./Utils/General/General";
 import {Spinner} from "react-vcomponents";
@@ -91,6 +91,12 @@ function CreateUI() {
 		mountNodeParent!.appendChild(mountNode);
 	}
 
+	// trigger window load event, so AddGlobalStyle commands from react-vextensions execute
+	var load_event = document.createEvent("Events");
+	load_event.initEvent("load", false, false);
+	window.document.dispatchEvent(load_event);
+
 	//ReactDOM.render(<RootUI/>, mountNode);
-	ReactDOM.render(React.createElement(RootUI), mountNode);
+	//ReactDOM.render(React.createElement(RootUI), mountNode);
+	ReactDOM.render(React.createElement(RootUIWrapper), mountNode);
 }

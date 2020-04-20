@@ -86,6 +86,11 @@ function CreateUI() {
         mountNode.id = "vplugin-root";
         mountNodeParent.appendChild(mountNode);
     }
+    // trigger window load event, so AddGlobalStyle commands from react-vextensions execute
+    var load_event = document.createEvent("Events");
+    load_event.initEvent("load", false, false);
+    window.document.dispatchEvent(load_event);
     //ReactDOM.render(<RootUI/>, mountNode);
-    react_dom_1.default.render(react_1.default.createElement(Root_1.RootUI), mountNode);
+    //ReactDOM.render(React.createElement(RootUI), mountNode);
+    react_dom_1.default.render(react_1.default.createElement(Root_1.RootUIWrapper), mountNode);
 }
