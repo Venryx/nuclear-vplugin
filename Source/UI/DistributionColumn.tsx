@@ -7,7 +7,7 @@ import {RoundTo_Str, RoundTo} from "../Utils/General/FromJSVE";
 export const pathWeightCellUIs = {} as {[key: string]: WeightCellUI};
 
 export const distributionColumn = {
-	name: "Distribution [V]",
+	name: "Distribution Weight",
 	dataIndex: "distributionWeight",
 	sortable: false,
 	//className: "additional-class",
@@ -32,11 +32,14 @@ class WeightCellUI extends BaseComponentPlus({} as {row: RowData}, {}) {
 	render() {
 		const {row} = this.props;
 		const weight = store.pathWeights[row.path] != null ? store.pathWeights[row.path] : 1;
+		const tempWeight = store.pathWeights_temp[row.path] != null ? store.pathWeights_temp[row.path] : 1;
 		//const weightValues = GetWeightValuesForPath(row.path);
+		const subfinalWeight = GetFinalWeightForPath(row.path, false);
 		const finalWeight = GetFinalWeightForPath(row.path);
 		return (
 			<Row>
-				<Spinner value={RoundTo(weight * 100, 1)} onChange={val=> {
+				<Text>Base:</Text>
+				<Spinner ml={5} value={RoundTo(weight * 100, 1)} onChange={val=> {
 					if (val != 100) {
 						store.pathWeights[row.path] = RoundTo(val / 100, .01);
 					} else {
@@ -45,7 +48,18 @@ class WeightCellUI extends BaseComponentPlus({} as {row: RowData}, {}) {
 					// update all weight-cell uis (since final % might have changed)
 					Object.values(pathWeightCellUIs).forEach(cellUI=>cellUI.forceUpdate());
 				}}/>
-				<Text>% (final: {RoundTo_Str(finalWeight * 100, .01, undefined, false)}%)</Text>
+				<Text style={{width: 160}}>% Subfinal: {RoundTo_Str(subfinalWeight * 100, .01, undefined, false)}%</Text>
+				<Text>Boost:</Text>
+				<Spinner ml={5} value={RoundTo(tempWeight * 100, 1)} onChange={val=> {
+					if (val != 100) {
+						store.pathWeights_temp[row.path] = RoundTo(val / 100, .01);
+					} else {
+						delete store.pathWeights_temp[row.path];
+					}
+					// update all weight-cell uis (since final % might have changed)
+					Object.values(pathWeightCellUIs).forEach(cellUI=>cellUI.forceUpdate());
+				}}/>
+				<Text>% Final: {RoundTo_Str(finalWeight * 100, .01, undefined, false)}%</Text>
 			</Row>
 		);
 	}

@@ -14,6 +14,7 @@ class MainState {
         this.playlistLength = 100;
         this.clearBeforeGenerate = true;
         this.pathWeights = {};
+        this.pathWeights_temp = {};
     }
 }
 __decorate([
@@ -31,12 +32,15 @@ __decorate([
 __decorate([
     mobx_1.observable
 ], MainState.prototype, "pathWeights", void 0);
+__decorate([
+    mobx_1.observable
+], MainState.prototype, "pathWeights_temp", void 0);
 exports.MainState = MainState;
 exports.store = new MainState();
 window["vplugin_store"] = exports.store; // for console-based hacking and such
 // accessors
 // ==========
-function GetWeightValuesForPath(path) {
+function GetWeightValuesForPath(path, includeTemps = true) {
     const pathParts = path.split("/");
     const ancestorFolderPaths = pathParts.map((part, index) => {
         const partsForFolder = pathParts.slice(0, index + 1);
@@ -44,12 +48,15 @@ function GetWeightValuesForPath(path) {
         return folderPath;
     });
     return ancestorFolderPaths.map(path => {
-        return exports.store.pathWeights[path] != null ? exports.store.pathWeights[path] : 1;
+        let result = exports.store.pathWeights[path] != null ? exports.store.pathWeights[path] : 1;
+        if (includeTemps)
+            result *= exports.store.pathWeights_temp[path] != null ? exports.store.pathWeights_temp[path] : 1;
+        return result;
     });
 }
 exports.GetWeightValuesForPath = GetWeightValuesForPath;
-function GetFinalWeightForPath(path) {
-    const weightValues = GetWeightValuesForPath(path);
+function GetFinalWeightForPath(path, includeTemps = true) {
+    const weightValues = GetWeightValuesForPath(path, includeTemps);
     return weightValues.reduce((acc, cur) => acc * cur, 1);
 }
 exports.GetFinalWeightForPath = GetFinalWeightForPath;

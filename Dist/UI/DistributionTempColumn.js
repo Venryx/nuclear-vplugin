@@ -10,7 +10,7 @@ const react_vextensions_1 = require("react-vextensions");
 const FromJSVE_1 = require("../Utils/General/FromJSVE");
 exports.pathWeightCellUIs = {};
 exports.distributionColumn = {
-    name: "Distribution Weight",
+    name: "Distribution",
     dataIndex: "distributionWeight",
     sortable: false,
     //className: "additional-class",
@@ -32,13 +32,10 @@ class WeightCellUI extends react_vextensions_1.BaseComponentPlus({}, {}) {
     render() {
         const { row } = this.props;
         const weight = Store_1.store.pathWeights[row.path] != null ? Store_1.store.pathWeights[row.path] : 1;
-        const tempWeight = Store_1.store.pathWeights_temp[row.path] != null ? Store_1.store.pathWeights_temp[row.path] : 1;
         //const weightValues = GetWeightValuesForPath(row.path);
-        const subfinalWeight = Store_1.GetFinalWeightForPath(row.path, false);
         const finalWeight = Store_1.GetFinalWeightForPath(row.path);
         return (react_1.default.createElement(react_vcomponents_1.Row, null,
-            react_1.default.createElement(react_vcomponents_1.Text, null, "Base:"),
-            react_1.default.createElement(react_vcomponents_1.Spinner, { ml: 5, value: FromJSVE_1.RoundTo(weight * 100, 1), onChange: val => {
+            react_1.default.createElement(react_vcomponents_1.Spinner, { value: FromJSVE_1.RoundTo(weight * 100, 1), onChange: val => {
                     if (val != 100) {
                         Store_1.store.pathWeights[row.path] = FromJSVE_1.RoundTo(val / 100, .01);
                     }
@@ -48,24 +45,9 @@ class WeightCellUI extends react_vextensions_1.BaseComponentPlus({}, {}) {
                     // update all weight-cell uis (since final % might have changed)
                     Object.values(exports.pathWeightCellUIs).forEach(cellUI => cellUI.forceUpdate());
                 } }),
-            react_1.default.createElement(react_vcomponents_1.Text, { style: { width: 160 } },
-                "% Subfinal: ",
-                FromJSVE_1.RoundTo_Str(subfinalWeight * 100, .01, undefined, false),
-                "%"),
-            react_1.default.createElement(react_vcomponents_1.Text, null, "Boost:"),
-            react_1.default.createElement(react_vcomponents_1.Spinner, { ml: 5, value: FromJSVE_1.RoundTo(tempWeight * 100, 1), onChange: val => {
-                    if (val != 100) {
-                        Store_1.store.pathWeights_temp[row.path] = FromJSVE_1.RoundTo(val / 100, .01);
-                    }
-                    else {
-                        delete Store_1.store.pathWeights_temp[row.path];
-                    }
-                    // update all weight-cell uis (since final % might have changed)
-                    Object.values(exports.pathWeightCellUIs).forEach(cellUI => cellUI.forceUpdate());
-                } }),
             react_1.default.createElement(react_vcomponents_1.Text, null,
-                "% Final: ",
+                "% (final: ",
                 FromJSVE_1.RoundTo_Str(finalWeight * 100, .01, undefined, false),
-                "%")));
+                "%)")));
     }
 }
