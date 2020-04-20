@@ -32,3 +32,11 @@ function AddPropToImmutableJSMap(obj, propName, propValue) {
     }
 }
 exports.AddPropToImmutableJSMap = AddPropToImmutableJSMap;
+function FixTrackForQueue(track) {
+    let result = JSON.parse(JSON.stringify(track));
+    if (typeof result.artist == "object") {
+        result.artist = result.artist.name;
+    }
+    return result;
+}
+exports.FixTrackForQueue = FixTrackForQueue;

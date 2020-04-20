@@ -7,6 +7,7 @@ import {observable, runInAction} from "mobx";
 import {observer} from "mobx-react";
 import {AsyncTrunk} from "mobx-sync";
 import {Observer} from "../Utils/General/FromVWAF";
+import {ClearPlaylist, GeneratePlaylist} from "../Utils/Managers/Playlists";
 
 @observer
 export class RootUIWrapper extends BaseComponentPlus({}, {}) {
@@ -60,7 +61,12 @@ export class RootUI extends BaseComponentPlus({}, {}) {
 							</Row>
 							<Row mt={5}>
 								<Button text="Generate playlist" onClick={()=> {
+									if (store.clearBeforeGenerate) {
+										ClearPlaylist();
+									}
+									GeneratePlaylist();
 								}}/>
+								<CheckBox ml={5} text="Clear previous" value={store.clearBeforeGenerate} onChange={val=>store.clearBeforeGenerate = val}/>
 							</Row>
 							<Row mt={5}>
 								<Button text="Export" onClick={()=> {

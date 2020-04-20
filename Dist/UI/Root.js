@@ -27,6 +27,7 @@ const mobx_1 = require("mobx");
 const mobx_react_1 = require("mobx-react");
 const mobx_sync_1 = require("mobx-sync");
 const FromVWAF_1 = require("../Utils/General/FromVWAF");
+const Playlists_1 = require("../Utils/Managers/Playlists");
 let RootUIWrapper = class RootUIWrapper extends react_vextensions_1.BaseComponentPlus({}, {}) {
     constructor() {
         super(...arguments);
@@ -79,7 +80,12 @@ let RootUI = class RootUI extends react_vextensions_1.BaseComponentPlus({}, {}) 
                             react_1.default.createElement(react_vcomponents_1.Spinner, { ml: 5, value: Store_1.store.playlistLength, onChange: val => Store_1.store.playlistLength = val })),
                         react_1.default.createElement(react_vcomponents_1.Row, { mt: 5 },
                             react_1.default.createElement(react_vcomponents_1.Button, { text: "Generate playlist", onClick: () => {
-                                } })),
+                                    if (Store_1.store.clearBeforeGenerate) {
+                                        Playlists_1.ClearPlaylist();
+                                    }
+                                    Playlists_1.GeneratePlaylist();
+                                } }),
+                            react_1.default.createElement(react_vcomponents_1.CheckBox, { ml: 5, text: "Clear previous", value: Store_1.store.clearBeforeGenerate, onChange: val => Store_1.store.clearBeforeGenerate = val })),
                         react_1.default.createElement(react_vcomponents_1.Row, { mt: 5 },
                             react_1.default.createElement(react_vcomponents_1.Button, { text: "Export", onClick: () => {
                                     const date = new Date();

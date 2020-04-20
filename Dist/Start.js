@@ -20,6 +20,7 @@ function Start(api, rootPath, require_app) {
     }
     // set up unloader function for the current launch
     window["vplugin_unloadLastLaunch"] = Unload;
+    exports.nuclearAPI = api;
     mountNodeParentFinder.Start();
     //console.log("Test1:" + require("react-redux"));
     //console.log("Test2:", __webpack_require__);

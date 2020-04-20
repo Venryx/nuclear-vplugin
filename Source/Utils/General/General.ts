@@ -31,3 +31,11 @@ export function AddPropToImmutableJSMap(obj, propName: string, propValue: any) {
 		obj._root.entries.push([propName, propValue]);
 	}
 }
+
+export function FixTrackForQueue(track) {
+	let result = JSON.parse(JSON.stringify(track));
+	if (typeof result.artist == "object") {
+		result.artist = result.artist.name;
+	}
+	return result;
+}

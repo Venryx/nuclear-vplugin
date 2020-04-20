@@ -1,20 +1,8 @@
-import {store} from "../Store";
+import {store, GetFinalWeightForPath} from "../Store";
 import React from "react";
 import {Spinner, Text, Row} from "react-vcomponents";
 import {BaseComponentPlus} from "react-vextensions";
 import {RoundTo_Str, RoundTo} from "../Utils/General/FromJSVE";
-
-export function GetWeightValuesForPath(path: string) {
-	const pathParts = path.split("/");
-	const ancestorFolderPaths = pathParts.map((part, index)=> {
-		const partsForFolder = pathParts.slice(0, index + 1);
-		const folderPath = partsForFolder.join("/");
-		return folderPath;
-	});
-	return ancestorFolderPaths.map(path=> {
-		return store.pathWeights[path] != null ? store.pathWeights[path] : 1;
-	});
-}
 
 export const pathWeightCellUIs = {} as {[key: string]: WeightCellUI};
 
@@ -44,8 +32,8 @@ class WeightCellUI extends BaseComponentPlus({} as {row: RowData}, {}) {
 	render() {
 		const {row} = this.props;
 		const weight = store.pathWeights[row.path] != null ? store.pathWeights[row.path] : 1;
-		const weightValues = GetWeightValuesForPath(row.path);
-		const finalWeight = weightValues.reduce((acc, cur)=>acc * cur, 1);
+		//const weightValues = GetWeightValuesForPath(row.path);
+		const finalWeight = GetFinalWeightForPath(row.path);
 		return (
 			<Row>
 				<Spinner value={RoundTo(weight * 100, 1)} onChange={val=> {

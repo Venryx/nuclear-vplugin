@@ -8,18 +8,6 @@ const react_1 = __importDefault(require("react"));
 const react_vcomponents_1 = require("react-vcomponents");
 const react_vextensions_1 = require("react-vextensions");
 const FromJSVE_1 = require("../Utils/General/FromJSVE");
-function GetWeightValuesForPath(path) {
-    const pathParts = path.split("/");
-    const ancestorFolderPaths = pathParts.map((part, index) => {
-        const partsForFolder = pathParts.slice(0, index + 1);
-        const folderPath = partsForFolder.join("/");
-        return folderPath;
-    });
-    return ancestorFolderPaths.map(path => {
-        return Store_1.store.pathWeights[path] != null ? Store_1.store.pathWeights[path] : 1;
-    });
-}
-exports.GetWeightValuesForPath = GetWeightValuesForPath;
 exports.pathWeightCellUIs = {};
 exports.distributionColumn = {
     name: "Distribution [V]",
@@ -44,8 +32,8 @@ class WeightCellUI extends react_vextensions_1.BaseComponentPlus({}, {}) {
     render() {
         const { row } = this.props;
         const weight = Store_1.store.pathWeights[row.path] != null ? Store_1.store.pathWeights[row.path] : 1;
-        const weightValues = GetWeightValuesForPath(row.path);
-        const finalWeight = weightValues.reduce((acc, cur) => acc * cur, 1);
+        //const weightValues = GetWeightValuesForPath(row.path);
+        const finalWeight = Store_1.GetFinalWeightForPath(row.path);
         return (react_1.default.createElement(react_vcomponents_1.Row, null,
             react_1.default.createElement(react_vcomponents_1.Spinner, { value: FromJSVE_1.RoundTo(weight * 100, 1), onChange: val => {
                     if (val != 100) {

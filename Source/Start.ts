@@ -8,6 +8,12 @@ import {Spinner} from "react-vcomponents";
 import {distributionColumn} from "./UI/DistributionColumn";
 import {store} from "./Store";
 
+export let nuclearAPI: {
+	store;
+	//React;
+	//Redux;
+};
+
 let unsubscribe;
 export function Start(api, rootPath: string, require_app: (path: string)=>any) {
 	// if there was a previous launch of this plugin, unload that launch before this one starts 
@@ -18,6 +24,7 @@ export function Start(api, rootPath: string, require_app: (path: string)=>any) {
 	// set up unloader function for the current launch
 	window["vplugin_unloadLastLaunch"] = Unload;
 
+	nuclearAPI = api;
 	mountNodeParentFinder.Start();
 	
 	//console.log("Test1:" + require("react-redux"));
