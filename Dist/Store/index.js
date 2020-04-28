@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mobx_1 = require("mobx");
 class MainState {
     constructor() {
+        this.rowHeight = 25;
         this.showAlbumColumn = true;
         this.showArtistColumn = true;
         this.playlistLength = 100;
@@ -17,6 +18,9 @@ class MainState {
         this.pathWeights_temp = {};
     }
 }
+__decorate([
+    mobx_1.observable
+], MainState.prototype, "rowHeight", void 0);
 __decorate([
     mobx_1.observable
 ], MainState.prototype, "showAlbumColumn", void 0);

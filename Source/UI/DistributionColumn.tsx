@@ -6,7 +6,7 @@ import {RoundTo_Str, RoundTo} from "../Utils/General/FromJSVE";
 
 export const pathWeightCellUIs = {} as {[key: string]: WeightCellUI};
 
-export const distributionColumn = {
+/*export const distributionColumn_rrg = {
 	name: "Distribution Weight",
 	dataIndex: "distributionWeight",
 	sortable: false,
@@ -19,6 +19,21 @@ export const distributionColumn = {
 					pathWeightCellUIs[row.path] = c;
 				} else {
 					delete pathWeightCellUIs[row.path];
+				}
+			}}/>
+		);
+	},
+};*/
+export const distributionColumn = {
+	title: "Distribution Weight",
+	dataKey: "distributionWeight",
+	cellRenderer: ({ cellData, columns, column, columnIndex, rowData, rowIndex, container, isScrolling }) => {
+		return (
+			<WeightCellUI row={rowData} ref={c=> {
+				if (c) {
+					pathWeightCellUIs[rowData.path] = c;
+				} else {
+					delete pathWeightCellUIs[rowData.path];
 				}
 			}}/>
 		);

@@ -51,6 +51,10 @@ export class RootUI extends BaseComponentPlus({}, {}) {
 						</DropDownTrigger>
 						<DropDownContent style={{position: "absolute", width: 500}}>
 							<Row>
+								<Text>Row height:</Text>
+								<Spinner ml={5} value={store.rowHeight} onChange={val=>store.rowHeight = val}/>
+							</Row>
+							<Row>
 								<Text>Show columns:</Text>
 								<CheckBox ml={5} text="Album" value={store.showAlbumColumn} onChange={val=>store.showAlbumColumn = val}/>
 								<CheckBox ml={5} text="Artist" value={store.showArtistColumn} onChange={val=>store.showArtistColumn = val}/>

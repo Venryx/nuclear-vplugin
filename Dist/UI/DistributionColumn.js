@@ -9,19 +9,34 @@ const react_vcomponents_1 = require("react-vcomponents");
 const react_vextensions_1 = require("react-vextensions");
 const FromJSVE_1 = require("../Utils/General/FromJSVE");
 exports.pathWeightCellUIs = {};
-exports.distributionColumn = {
+/*export const distributionColumn_rrg = {
     name: "Distribution Weight",
     dataIndex: "distributionWeight",
     sortable: false,
     //className: "additional-class",
     id: `${Date.now()}_${Math.random().toString()}`,
     renderer: ({ column, value, row }) => {
-        return (react_1.default.createElement(WeightCellUI, { row: row, ref: c => {
+        return (
+            <WeightCellUI row={row} ref={c=> {
                 if (c) {
-                    exports.pathWeightCellUIs[row.path] = c;
+                    pathWeightCellUIs[row.path] = c;
+                } else {
+                    delete pathWeightCellUIs[row.path];
+                }
+            }}/>
+        );
+    },
+};*/
+exports.distributionColumn = {
+    title: "Distribution Weight",
+    dataKey: "distributionWeight",
+    cellRenderer: ({ cellData, columns, column, columnIndex, rowData, rowIndex, container, isScrolling }) => {
+        return (react_1.default.createElement(WeightCellUI, { row: rowData, ref: c => {
+                if (c) {
+                    exports.pathWeightCellUIs[rowData.path] = c;
                 }
                 else {
-                    delete exports.pathWeightCellUIs[row.path];
+                    delete exports.pathWeightCellUIs[rowData.path];
                 }
             } }));
     },
