@@ -30,6 +30,8 @@ exports.pathWeightCellUIs = {};
 exports.distributionColumn = {
     title: "Distribution Weight",
     dataKey: "distributionWeight",
+    width: 0,
+    flexGrow: 3,
     cellRenderer: ({ cellData, columns, column, columnIndex, rowData, rowIndex, container, isScrolling }) => {
         return (react_1.default.createElement(WeightCellUI, { row: rowData, ref: c => {
                 if (c) {

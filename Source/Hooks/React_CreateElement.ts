@@ -15,22 +15,16 @@ export function AddHook_React_CreateElement(appReact_new) {
 		if (args[0].name == "BaseTable") {
 			const props = args[1];
 			let {columns, data, rowHeight} = props;
+			if (columns.orig == null) columns.orig = columns.slice();
 
 			props.rowHeight = store.rowHeight;
 
 			// toggle album column
-			const albumColumnEntryIndex = columns.findIndex(a => a.dataKey == "album");
+			const albumColumnEntry = columns.orig.find(a=>a.dataKey == "album");
+			const albumColumnEntryIndex = columns.findIndex(a=>a.dataKey == "album");
 			if (store.showAlbumColumn) {
 				if (albumColumnEntryIndex == -1) {
-					columns.splice(1, 0, {
-						name: "Album",
-						dataKey: "album",
-						sortable: false,
-						className: "additional-class",
-						defaultSortDirection: "descend",
-						//id: "QWxidW1ncmlkLWNvbHVtbg==",
-						id: Math.random(),
-					});
+					columns.splice(1, 0, albumColumnEntry);
 				}
 			} else {
 				if (albumColumnEntryIndex != -1) {
@@ -39,18 +33,11 @@ export function AddHook_React_CreateElement(appReact_new) {
 			}
 
 			// toggle artist column
-			const artistColumnEntryIndex = columns.findIndex(a => a.dataKey == "artist");
+			const artistColumnEntry = columns.orig.find(a=>a.dataKey == "artist");
+			const artistColumnEntryIndex = columns.findIndex(a=>a.dataKey == "artist");
 			if (store.showArtistColumn) {
 				if (artistColumnEntryIndex == -1) {
-					columns.splice(2, 0, {
-						name: "Artist",
-						dataKey: "artist",
-						sortable: false,
-						className: "additional-class",
-						defaultSortDirection: "descend",
-						//id: "QXJ0aXN0Z3JpZC1jb2x1bW4=",
-						id: Math.random(),
-					});
+					columns.splice(2, 0, artistColumnEntry);
 				}
 			} else {
 				if (artistColumnEntryIndex != -1) {
@@ -59,7 +46,7 @@ export function AddHook_React_CreateElement(appReact_new) {
 			}
 
 			// apply own column
-			const oldColumnEntryIndex = columns.findIndex(a => a.name == distributionColumn.title);
+			const oldColumnEntryIndex = columns.findIndex(a=>a.name == distributionColumn.title);
 			if (oldColumnEntryIndex != -1) {
 				columns.splice(oldColumnEntryIndex, 1);
 			}

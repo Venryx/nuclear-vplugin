@@ -10,19 +10,14 @@ function AddHook_Store_ReactReduxGrid(api) {
         const tableLayout = newState.grid.get("local-library-folder-tree");
         const tableData = newState.dataSource.get("local-library-folder-tree");
         if (tableLayout) {
+            if (tableLayout.columns_orig == null)
+                tableLayout.columns_orig = tableLayout.columns;
             // toggle album column
+            const albumColumnEntry = tableLayout.columns_orig.find(a => a.dataIndex == "album");
             const albumColumnEntryIndex = tableLayout.columns.findIndex(a => a.dataIndex == "album");
             if (Store_1.store.showAlbumColumn) {
                 if (albumColumnEntryIndex == -1) {
-                    tableLayout.columns.splice(1, 0, {
-                        name: "Album",
-                        dataIndex: "album",
-                        sortable: false,
-                        className: "additional-class",
-                        defaultSortDirection: "descend",
-                        //id: "QWxidW1ncmlkLWNvbHVtbg==",
-                        id: Math.random(),
-                    });
+                    tableLayout.columns.splice(1, 0, albumColumnEntry);
                 }
             }
             else {
@@ -31,18 +26,11 @@ function AddHook_Store_ReactReduxGrid(api) {
                 }
             }
             // toggle artist column
+            const artistColumnEntry = tableLayout.columns_orig.find(a => a.dataIndex == "artist");
             const artistColumnEntryIndex = tableLayout.columns.findIndex(a => a.dataIndex == "artist");
             if (Store_1.store.showArtistColumn) {
                 if (artistColumnEntryIndex == -1) {
-                    tableLayout.columns.splice(2, 0, {
-                        name: "Artist",
-                        dataIndex: "artist",
-                        sortable: false,
-                        className: "additional-class",
-                        defaultSortDirection: "descend",
-                        //id: "QXJ0aXN0Z3JpZC1jb2x1bW4=",
-                        id: Math.random(),
-                    });
+                    tableLayout.columns.splice(2, 0, artistColumnEntry);
                 }
             }
             else {

@@ -14,20 +14,15 @@ function AddHook_React_CreateElement(appReact_new) {
         if (args[0].name == "BaseTable") {
             const props = args[1];
             let { columns, data, rowHeight } = props;
+            if (columns.orig == null)
+                columns.orig = columns.slice();
             props.rowHeight = Store_1.store.rowHeight;
             // toggle album column
+            const albumColumnEntry = columns.orig.find(a => a.dataKey == "album");
             const albumColumnEntryIndex = columns.findIndex(a => a.dataKey == "album");
             if (Store_1.store.showAlbumColumn) {
                 if (albumColumnEntryIndex == -1) {
-                    columns.splice(1, 0, {
-                        name: "Album",
-                        dataKey: "album",
-                        sortable: false,
-                        className: "additional-class",
-                        defaultSortDirection: "descend",
-                        //id: "QWxidW1ncmlkLWNvbHVtbg==",
-                        id: Math.random(),
-                    });
+                    columns.splice(1, 0, albumColumnEntry);
                 }
             }
             else {
@@ -36,18 +31,11 @@ function AddHook_React_CreateElement(appReact_new) {
                 }
             }
             // toggle artist column
+            const artistColumnEntry = columns.orig.find(a => a.dataKey == "artist");
             const artistColumnEntryIndex = columns.findIndex(a => a.dataKey == "artist");
             if (Store_1.store.showArtistColumn) {
                 if (artistColumnEntryIndex == -1) {
-                    columns.splice(2, 0, {
-                        name: "Artist",
-                        dataKey: "artist",
-                        sortable: false,
-                        className: "additional-class",
-                        defaultSortDirection: "descend",
-                        //id: "QXJ0aXN0Z3JpZC1jb2x1bW4=",
-                        id: Math.random(),
-                    });
+                    columns.splice(2, 0, artistColumnEntry);
                 }
             }
             else {
