@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mobx_1 = require("mobx");
 class MainState {
     constructor() {
-        this.rowHeight = 25;
+        this.rowHeight = 23;
         this.showAlbumColumn = true;
         this.showArtistColumn = true;
         this.playlistLength = 100;

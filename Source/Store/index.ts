@@ -1,7 +1,7 @@
 import {observable} from "mobx";
 
 export class MainState {
-	@observable rowHeight = 25;
+	@observable rowHeight = 23;
 	@observable showAlbumColumn = true;
 	@observable showArtistColumn = true;
 	@observable playlistLength = 100;
