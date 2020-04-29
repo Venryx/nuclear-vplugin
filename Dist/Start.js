@@ -32,22 +32,27 @@ exports.Start = Start;
 function Unload() {
     //RemoveHook_Store_ReactReduxGrid();
     React_CreateElement_1.RemoveHook_React_CreateElement();
+    mountNode.remove();
 }
 exports.Unload = Unload;
 let mountNodeParent;
+let mountNode;
 const mountNodeParentFinder = new FromJSVE_1.Timer(100, () => {
     mountNodeParent = document.querySelector(".search_box_container");
+    //mountNodeParent = document.querySelector(".navbar_spacer") as HTMLDivElement;
     if (mountNodeParent) {
         mountNodeParentFinder.Stop();
         CreateUI();
     }
 });
 function CreateUI() {
-    let mountNode = document.getElementById("vplugin-root");
+    mountNode = document.getElementById("vplugin-root");
     if (mountNode == null) {
         mountNode = document.createElement("div");
         mountNode.id = "vplugin-root";
-        mountNodeParent.appendChild(mountNode);
+        //mountNodeParent!.appendChild(mountNode);
+        //mountNodeParent!.insertBefore(mountNode, spacer); // insert after search-box, before spacer
+        mountNodeParent.insertAdjacentElement("afterend", mountNode); // insert after search-box
     }
     // trigger window load event, so AddGlobalStyle commands from react-vextensions execute
     var load_event = document.createEvent("Events");
