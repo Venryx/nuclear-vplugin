@@ -26,6 +26,7 @@ export const pathWeightCellUIs = {} as {[key: string]: WeightCellUI};
 };*/
 export const distributionColumn = {
 	title: "Distribution Weight",
+	key: "distributionWeight",
 	dataKey: "distributionWeight",
 	width: 0, // required, but flex-grow actually drives the sizing
 	flexGrow: 3,

@@ -29,6 +29,7 @@ exports.pathWeightCellUIs = {};
 };*/
 exports.distributionColumn = {
     title: "Distribution Weight",
+    key: "distributionWeight",
     dataKey: "distributionWeight",
     width: 0,
     flexGrow: 3,
