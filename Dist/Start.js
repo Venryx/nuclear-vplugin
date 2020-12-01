@@ -21,6 +21,7 @@ function Start(api, rootPath, require_app) {
     //AddHook_Store_ReactReduxGrid(api);
     //AddHook_React_CreateElement(require_app);
     React_CreateElement_1.AddHook_React_CreateElement(api.React);
+    //AddHook_Object_scanLocalFoldersFailed();
     mountNodeParentFinder.Start();
     //console.log("Test1:" + require("react-redux"));
     //console.log("Test2:", __webpack_require__);
@@ -32,6 +33,7 @@ exports.Start = Start;
 function Unload() {
     //RemoveHook_Store_ReactReduxGrid();
     React_CreateElement_1.RemoveHook_React_CreateElement();
+    //RemoveHook_Object_scanLocalFoldersFailed();
     mountNode.remove();
 }
 exports.Unload = Unload;

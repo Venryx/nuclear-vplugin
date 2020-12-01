@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import {RootUIWrapper} from "./UI/Root";
 import {Timer} from "./Utils/General/FromJSVE";
 import {AddHook_React_CreateElement, RemoveHook_React_CreateElement} from "./Hooks/React_CreateElement";
+import {AddHook_Object_scanLocalFoldersFailed, RemoveHook_Object_scanLocalFoldersFailed} from "./Hooks/Object_scanLocalFoldersFailed";
 
 export let nuclearAPI: {
 	store;
@@ -24,6 +25,7 @@ export function Start(api, rootPath: string, require_app: (path: string)=>any) {
 	//AddHook_Store_ReactReduxGrid(api);
 	//AddHook_React_CreateElement(require_app);
 	AddHook_React_CreateElement(api.React);
+	//AddHook_Object_scanLocalFoldersFailed();
 	mountNodeParentFinder.Start();
 	
 	//console.log("Test1:" + require("react-redux"));
@@ -36,6 +38,7 @@ export function Start(api, rootPath: string, require_app: (path: string)=>any) {
 export function Unload() {
 	//RemoveHook_Store_ReactReduxGrid();
 	RemoveHook_React_CreateElement();
+	//RemoveHook_Object_scanLocalFoldersFailed();
 	mountNode.remove();
 }
 
