@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// fixes that failure to load a file in local-library, would cause scanning to fail
+// Fixes that failure to load a file in local-library, would cause an error in the renderer (when notified of the scanning error).
+// This doesn't actually solve the source error, but makes the error-reporting a bit nicer.
 function AddHook_Object_scanLocalFoldersFailed() {
     Object.defineProperty(Object.prototype, "scanLocalFoldersFailed", {
         enumerable: false,

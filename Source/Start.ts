@@ -25,7 +25,7 @@ export function Start(api, rootPath: string, require_app: (path: string)=>any) {
 	//AddHook_Store_ReactReduxGrid(api);
 	//AddHook_React_CreateElement(require_app);
 	AddHook_React_CreateElement(api.React);
-	//AddHook_Object_scanLocalFoldersFailed();
+	AddHook_Object_scanLocalFoldersFailed();
 	mountNodeParentFinder.Start();
 	
 	//console.log("Test1:" + require("react-redux"));
@@ -38,7 +38,7 @@ export function Start(api, rootPath: string, require_app: (path: string)=>any) {
 export function Unload() {
 	//RemoveHook_Store_ReactReduxGrid();
 	RemoveHook_React_CreateElement();
-	//RemoveHook_Object_scanLocalFoldersFailed();
+	RemoveHook_Object_scanLocalFoldersFailed();
 	mountNode.remove();
 }
 

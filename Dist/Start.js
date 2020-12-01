@@ -9,6 +9,7 @@ const react_dom_1 = __importDefault(require("react-dom"));
 const Root_1 = require("./UI/Root");
 const FromJSVE_1 = require("./Utils/General/FromJSVE");
 const React_CreateElement_1 = require("./Hooks/React_CreateElement");
+const Object_scanLocalFoldersFailed_1 = require("./Hooks/Object_scanLocalFoldersFailed");
 function Start(api, rootPath, require_app) {
     // if there was a previous launch of this plugin, unload that launch before this one starts 
     if (window["vplugin_unloadLastLaunch"]) {
@@ -21,7 +22,7 @@ function Start(api, rootPath, require_app) {
     //AddHook_Store_ReactReduxGrid(api);
     //AddHook_React_CreateElement(require_app);
     React_CreateElement_1.AddHook_React_CreateElement(api.React);
-    //AddHook_Object_scanLocalFoldersFailed();
+    Object_scanLocalFoldersFailed_1.AddHook_Object_scanLocalFoldersFailed();
     mountNodeParentFinder.Start();
     //console.log("Test1:" + require("react-redux"));
     //console.log("Test2:", __webpack_require__);
@@ -33,7 +34,7 @@ exports.Start = Start;
 function Unload() {
     //RemoveHook_Store_ReactReduxGrid();
     React_CreateElement_1.RemoveHook_React_CreateElement();
-    //RemoveHook_Object_scanLocalFoldersFailed();
+    Object_scanLocalFoldersFailed_1.RemoveHook_Object_scanLocalFoldersFailed();
     mountNode.remove();
 }
 exports.Unload = Unload;
