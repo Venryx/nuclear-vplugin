@@ -71,6 +71,7 @@ module.exports = {
                 Start(rootPath, require_app);*/
                 const distPath = `${rootPath}/Dist`;
                 const distProxiesPath = `${rootPath}/Dist_Proxies`;
+                // todo: try using this cache-clearing call instead, rather than using the proxy-folder approach: delete require.cache[require.resolve(moduleName)]
                 // if plugin just (re)installed, load the plugin through a proxy/sym-link, so that the "require" function doesn't use cached versions of the plugin scripts
                 if (justInstalled) {
                     const proxyPath = `${distProxiesPath}/Proxy_${Date.now()}`;

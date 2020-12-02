@@ -3,6 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Store_1 = require("../Store");
 const DistributionColumn_1 = require("../UI/DistributionColumn");
 //const require_app = window.require;
+// class-checks, for use in React.createElement hook (can't use class-name, since minified in prod builds)
+// ==========
+function ArgsMatchForClass_BaseTable(args) {
+    return args[1] && args[1].columns && args[1].data && args[1].rowHeight;
+}
+// hook
+// ==========
 let appReact;
 let oldCreateElement;
 //export function AddHook_React_CreateElement(require_app) {
@@ -11,7 +18,8 @@ function AddHook_React_CreateElement(appReact_new) {
     appReact = appReact_new;
     oldCreateElement = appReact.createElement;
     appReact.createElement = function (...args) {
-        if (args[0].name == "BaseTable") {
+        //if (args[0].name == "BaseTable") {
+        if (ArgsMatchForClass_BaseTable(args)) {
             const props = args[1];
             let { columns, data, rowHeight } = props;
             if (columns.orig == null)
@@ -44,7 +52,7 @@ function AddHook_React_CreateElement(appReact_new) {
                 }
             }
             // apply own column
-            const oldColumnEntryIndex = columns.findIndex(a => a.name == DistributionColumn_1.distributionColumn.title);
+            const oldColumnEntryIndex = columns.findIndex(a => a.title == DistributionColumn_1.distributionColumn.title);
             if (oldColumnEntryIndex != -1) {
                 columns.splice(oldColumnEntryIndex, 1);
             }

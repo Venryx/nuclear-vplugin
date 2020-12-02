@@ -18,6 +18,7 @@ function Start(api, rootPath, require_app) {
     }
     // set up unloader function for the current launch
     window["vplugin_unloadLastLaunch"] = Unload;
+    console.log("VPlugin starting. @api:", api, "@rootPath", rootPath, "@require_app", require_app);
     exports.nuclearAPI = api;
     //AddHook_Store_ReactReduxGrid(api);
     //AddHook_React_CreateElement(require_app);

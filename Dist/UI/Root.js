@@ -28,6 +28,21 @@ const mobx_react_1 = require("mobx-react");
 const mobx_sync_1 = require("mobx-sync");
 const FromVWAF_1 = require("../Utils/General/FromVWAF");
 const Playlists_1 = require("../Utils/Managers/Playlists");
+//import {ShowMessageBox} from "react-vmessagebox";
+/*let {ShowMessageBox}: typeof import("react-vmessagebox") = {} as any;
+(async()=>{
+    ({ShowMessageBox} = await import("react-vmessagebox"));
+    //({ShowMessageBox} = await eval(`import("react-vmessagebox")`));
+    /*const importFunc = eval("import");
+    ({ShowMessageBox} = await importFunc("react-vmessagebox"));*#/
+})();*/
+/*import esmModules from "../ImportHelper";
+const react_vMessageBox = esmModules.react_vMessageBox as typeof import("react-vmessagebox");*/
+//import {react_vMessageBox} from "../ImportHelper";
+/*const {ShowMessageBox} = react_vMessageBox;
+console.log("ShowMessageBox:", ShowMessageBox);*/
+/*const require_esm = require("esm")(module);
+let {react_vMessageBox} = require_esm("../ImportHelper");*/
 let RootUIWrapper = class RootUIWrapper extends react_vextensions_1.BaseComponentPlus({}, {}) {
     constructor() {
         super(...arguments);
@@ -97,9 +112,49 @@ let RootUI = class RootUI extends react_vextensions_1.BaseComponentPlus({}, {}) 
                                     const dateStr = date_local.toISOString().slice(0, "2020-01-01T01:01:01".length).replace("T", " ").replace(/:/g, "-");
                                     FromJSVE_1.StartDownload(JSON.stringify(Store_1.store), `NuclearVPluginStoreBackup_${dateStr}.json`);
                                 } }),
-                            react_1.default.createElement(react_vcomponents_1.Button, { ml: 5, text: "Import", enabled: false, onClick: () => {
-                                    // todo
-                                } })))))));
+                            react_1.default.createElement(react_vcomponents_1.Button, { ml: 5, text: "Import", onClick: () => __awaiter(this, void 0, void 0, function* () {
+                                    /*const json = prompt("Paste JSON from export/backup file below", "");
+                                    if (json == null) return;
+                                    ImportConfig(JSON.parse(json));*/
+                                    let json = "";
+                                    const Change = (..._) => boxController.UpdateUI();
+                                    /*import("fs");
+                                    //import("react-vmessagebox");
+                                    debugger;
+                                    require("../ImportHelper");
+                                    return;*/
+                                    //let react_vMessageBox = await import("react-vmessagebox");
+                                    //let {react_vMessageBox} = require("../ImportHelper");
+                                    /*const require_esm = require("esm")(module);
+                                    let {react_vMessageBox} = require_esm("react-vmessagebox");*/
+                                    /*const require_esm = require("esm")(module);
+                                    let react_vMessageBox = require_esm("../ImportHelper").react_vMessageBox as typeof import("react-vmessagebox");*/
+                                    debugger;
+                                    let react_vMessageBox = require("../ImportHelper").react_vMessageBox;
+                                    setTimeout(() => {
+                                        console.log("ShowMessageBox", react_vMessageBox.ShowMessageBox);
+                                    }, 1000);
+                                    return;
+                                    let boxController = react_vMessageBox.ShowMessageBox({
+                                        title: "Import config JSON", cancelButton: true,
+                                        message: () => {
+                                            //boxController.options.okButtonProps = {enabled: error == null};
+                                            return (react_1.default.createElement(react_vcomponents_1.Column, { style: { padding: "10px 0", width: 600 } },
+                                                react_1.default.createElement(react_vcomponents_1.Row, null,
+                                                    react_1.default.createElement(react_vcomponents_1.Text, null, "JSON:"),
+                                                    react_1.default.createElement(react_vcomponents_1.TextArea, { ml: 5, style: { flex: 1 }, value: json, onChange: val => Change(json = val) }))));
+                                        },
+                                        onOK: () => {
+                                            ImportConfig(JSON.parse(json));
+                                        },
+                                    });
+                                    function ImportConfig(data) {
+                                        console.log("Importing config. @old:", JSON.parse(JSON.stringify(Store_1.store)), "@new:", data);
+                                        for (const [key, value] of Object.entries(data)) {
+                                            Store_1.store[key] = value;
+                                        }
+                                    }
+                                }) })))))));
     }
 };
 RootUI = __decorate([

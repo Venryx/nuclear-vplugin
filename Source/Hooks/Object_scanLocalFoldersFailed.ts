@@ -8,7 +8,7 @@ export function AddHook_Object_scanLocalFoldersFailed() {
 				console.log("scanLocalFoldersFailed @this:", this, "@arg1", arg1);
 				debugger;
 			};
-	},
+		},
 		set(val: any) {
 			Object.defineProperty(this, "scanLocalFoldersFailed", {value: val, writable: true, configurable: true});
 		},
