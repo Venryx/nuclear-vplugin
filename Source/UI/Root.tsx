@@ -8,6 +8,7 @@ import {observer} from "mobx-react";
 import {AsyncTrunk} from "mobx-sync";
 import {Observer} from "../Utils/General/FromVWAF";
 import {ClearPlaylist, GeneratePlaylist} from "../Utils/Managers/Playlists";
+import prompt from "electron-prompt";
 
 //import {ShowMessageBox} from "react-vmessagebox";
 /*let {ShowMessageBox}: typeof import("react-vmessagebox") = {} as any;
@@ -102,30 +103,7 @@ export class RootUI extends BaseComponentPlus({}, {}) {
 									if (json == null) return;
 									ImportConfig(JSON.parse(json));*/
 
-									let json = "";
-									const Change = (..._)=>boxController.UpdateUI();
-									
-									/*import("fs");
-									//import("react-vmessagebox");
-									debugger;
-									require("../ImportHelper");
-									return;*/
-									
-									//let react_vMessageBox = await import("react-vmessagebox");
-									//let {react_vMessageBox} = require("../ImportHelper");
-									/*const require_esm = require("esm")(module);
-									let {react_vMessageBox} = require_esm("react-vmessagebox");*/
-									/*const require_esm = require("esm")(module);
-									let react_vMessageBox = require_esm("../ImportHelper").react_vMessageBox as typeof import("react-vmessagebox");*/
-									debugger;
-									let react_vMessageBox = require("../ImportHelper").react_vMessageBox as typeof import("react-vmessagebox");
-
-									setTimeout(()=>{
-										console.log("ShowMessageBox", react_vMessageBox.ShowMessageBox);
-									}, 1000);
-									return;
-
-									let boxController = react_vMessageBox.ShowMessageBox({
+									/*let boxController = react_vMessageBox.ShowMessageBox({
 										title: "Import config JSON", cancelButton: true,
 										message: ()=>{
 											//boxController.options.okButtonProps = {enabled: error == null};
@@ -141,7 +119,27 @@ export class RootUI extends BaseComponentPlus({}, {}) {
 										onOK: ()=>{
 											ImportConfig(JSON.parse(json))
 										},
+									});*/
+									
+									const json = await prompt({
+										title: "Paste JSON from export/backup file below",
+										label: "JSON:",
+										value: "",
+										/*inputAttrs: {
+											type: 'url'
+										},*/
+										type: "input",
+
+										width: 800,
+										//height: 600,
+
+										skipTaskbar: false,
+										
+										// needed to keep prompt from getting hidden, since taskbar entry appears to not be created, and we don't have easy way of passing handle to window
+										//alwaysOnTop: true,
 									});
+									if (json == null) return;
+									ImportConfig(JSON.parse(json));
 
 									function ImportConfig(data) {
 										console.log("Importing config. @old:", JSON.parse(JSON.stringify(store)), "@new:", data);

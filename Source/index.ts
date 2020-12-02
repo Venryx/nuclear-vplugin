@@ -23,12 +23,12 @@ export = {
 		console.log("VPlugin preparing to start...");
 
 		// before anything else, open the dev-tools
-		const {remote} = require("electron");
+		/*const {remote} = require("electron");
 		//const webContents = remote.BrowserWindow.getFocusedWindow()!.webContents;
 		const webContents = remote.BrowserWindow.getAllWindows()[0].webContents;
 		if (!webContents.isDevToolsOpened()) {
 			webContents.openDevTools({mode: "bottom"});
-		}
+		}*/
 
 		let ownPluginEntry_beforeLoadCompleted = FindPluginEntry(api.store);
 		const unsubscribe = api.store.subscribe(() => {

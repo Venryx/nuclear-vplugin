@@ -28,6 +28,7 @@ const mobx_react_1 = require("mobx-react");
 const mobx_sync_1 = require("mobx-sync");
 const FromVWAF_1 = require("../Utils/General/FromVWAF");
 const Playlists_1 = require("../Utils/Managers/Playlists");
+const electron_prompt_1 = __importDefault(require("electron-prompt"));
 //import {ShowMessageBox} from "react-vmessagebox";
 /*let {ShowMessageBox}: typeof import("react-vmessagebox") = {} as any;
 (async()=>{
@@ -116,38 +117,38 @@ let RootUI = class RootUI extends react_vextensions_1.BaseComponentPlus({}, {}) 
                                     /*const json = prompt("Paste JSON from export/backup file below", "");
                                     if (json == null) return;
                                     ImportConfig(JSON.parse(json));*/
-                                    let json = "";
-                                    const Change = (..._) => boxController.UpdateUI();
-                                    /*import("fs");
-                                    //import("react-vmessagebox");
-                                    debugger;
-                                    require("../ImportHelper");
-                                    return;*/
-                                    //let react_vMessageBox = await import("react-vmessagebox");
-                                    //let {react_vMessageBox} = require("../ImportHelper");
-                                    /*const require_esm = require("esm")(module);
-                                    let {react_vMessageBox} = require_esm("react-vmessagebox");*/
-                                    /*const require_esm = require("esm")(module);
-                                    let react_vMessageBox = require_esm("../ImportHelper").react_vMessageBox as typeof import("react-vmessagebox");*/
-                                    debugger;
-                                    let react_vMessageBox = require("../ImportHelper").react_vMessageBox;
-                                    setTimeout(() => {
-                                        console.log("ShowMessageBox", react_vMessageBox.ShowMessageBox);
-                                    }, 1000);
-                                    return;
-                                    let boxController = react_vMessageBox.ShowMessageBox({
+                                    /*let boxController = react_vMessageBox.ShowMessageBox({
                                         title: "Import config JSON", cancelButton: true,
-                                        message: () => {
+                                        message: ()=>{
                                             //boxController.options.okButtonProps = {enabled: error == null};
-                                            return (react_1.default.createElement(react_vcomponents_1.Column, { style: { padding: "10px 0", width: 600 } },
-                                                react_1.default.createElement(react_vcomponents_1.Row, null,
-                                                    react_1.default.createElement(react_vcomponents_1.Text, null, "JSON:"),
-                                                    react_1.default.createElement(react_vcomponents_1.TextArea, { ml: 5, style: { flex: 1 }, value: json, onChange: val => Change(json = val) }))));
+                                            return (
+                                                <Column style={{padding: "10px 0", width: 600}}>
+                                                    <Row>
+                                                        <Text>JSON:</Text>
+                                                        <TextArea ml={5} style={{flex: 1}} value={json} onChange={val=>Change(json = val)}/>
+                                                    </Row>
+                                                </Column>
+                                            );
                                         },
-                                        onOK: () => {
-                                            ImportConfig(JSON.parse(json));
+                                        onOK: ()=>{
+                                            ImportConfig(JSON.parse(json))
                                         },
+                                    });*/
+                                    const json = yield electron_prompt_1.default({
+                                        title: "Paste JSON from export/backup file below",
+                                        label: "JSON:",
+                                        value: "",
+                                        /*inputAttrs: {
+                                            type: 'url'
+                                        },*/
+                                        type: "input",
+                                        width: 800,
+                                        //height: 600,
+                                        skipTaskbar: false,
                                     });
+                                    if (json == null)
+                                        return;
+                                    ImportConfig(JSON.parse(json));
                                     function ImportConfig(data) {
                                         console.log("Importing config. @old:", JSON.parse(JSON.stringify(Store_1.store)), "@new:", data);
                                         for (const [key, value] of Object.entries(data)) {
