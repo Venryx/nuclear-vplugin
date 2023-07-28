@@ -12,7 +12,15 @@ function ClearPlaylist() {
 }
 exports.ClearPlaylist = ClearPlaylist;
 function GeneratePlaylist() {
-    const tracks = Object.values(Start_1.nuclearAPI.store.getState().local.tracks);
+    const tracks = Object.values(Start_1.nuclearAPI.store.getState().local.tracks)
+        .filter(track => {
+        if (track.path == null)
+            return false;
+        // exclude "tracks" whose file-extension contains "_" (no normal audio extension has "_" in it, so these must be for tracks that I intentionally tried to disable by changing the extension)
+        if (track.path.includes("_") && track.path.includes(".") && track.path.lastIndexOf("_") > track.path.lastIndexOf("."))
+            return false;
+        return true;
+    });
     const trackWeights = tracks.map(track => Store_1.GetFinalWeightForPath(track.path));
     const totalWeight = trackWeights.reduce((acc, val) => acc + val, 0);
     for (let i = 0; i < Store_1.store.playlistLength; i++) {
